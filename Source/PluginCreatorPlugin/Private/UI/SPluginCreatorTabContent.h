@@ -17,7 +17,7 @@
 
 #include "Editor/PropertyEditor/Public/PropertyEditing.h"
 
-
+#include "Runtime/Launch/Resources/Version.h"
 
 
 enum ETemplateType
@@ -72,7 +72,12 @@ public:
 	/** Init property panel that will display plugin descriptor details*/
 	void InitDetailsView();
 
+#if ENGINE_MINOR_VERSION < 7
 	void OnUsePrivatePublicSplitChanged(ESlateCheckBoxState::Type InState);
+#else
+	void OnUsePrivatePublicSplitChanged(ECheckBoxState InState);
+#endif
+	
 
 	/** Called when Plugin Name textbox changes value*/
 	void OnPluginNameTextChanged(const FText& InText);
