@@ -346,10 +346,15 @@ void SPluginCreatorTabContent::OnTemplatesTabSwitched(const FText& InNewTab)
 
 void SPluginCreatorTabContent::InitDetailsView()
 {
+
 	// Create a property view
 	FPropertyEditorModule& EditModule = FModuleManager::Get().GetModuleChecked<FPropertyEditorModule>("PropertyEditor");
 
+#if ENGINE_MINOR_VERSION < 7
 	FDetailsViewArgs DetailsViewArgs( /*bUpdateFromSelection=*/ false, /*bLockable=*/ false, /*bAllowSearch=*/ false, /*bObjectsUseNameArea=*/ true, /*bHideSelectionTip=*/ true, /*InNotifyHook=*/ NULL, /*InSearchInitialKeyFocus=*/ false, /*InViewIdentifier=*/ NAME_None);
+#else
+	FDetailsViewArgs DetailsViewArgs( /*bUpdateFromSelection=*/ false, /*bLockable=*/ false, /*bAllowSearch=*/ false, /*const ENameAreaSettings InNameAreaSettings =*/ FDetailsViewArgs::ENameAreaSettings::ActorsUseNameArea, /*bHideSelectionTip=*/ true, /*InNotifyHook=*/ NULL, /*InSearchInitialKeyFocus=*/ false, /*InViewIdentifier=*/ NAME_None);
+#endif
 
 	PropertyView = EditModule.CreateDetailView(DetailsViewArgs);
 
@@ -358,10 +363,19 @@ void SPluginCreatorTabContent::InitDetailsView()
 	PropertyView->SetObject(DescriptorObject, true);
 }
 
+#if ENGINE_MINOR_VERSION < 7
 void SPluginCreatorTabContent::OnUsePrivatePublicSplitChanged(ESlateCheckBoxState::Type InState)
 {
 	bUsePublicPrivateSplit = InState == ESlateCheckBoxState::Checked;
 }
+#else
+void SPluginCreatorTabContent::OnUsePrivatePublicSplitChanged(ECheckBoxState InState)
+{
+	bUsePublicPrivateSplit = InState == ECheckBoxState::Checked;
+}
+#endif
+
+
 
 void SPluginCreatorTabContent::OnPluginNameTextChanged(const FText& InText)
 {
