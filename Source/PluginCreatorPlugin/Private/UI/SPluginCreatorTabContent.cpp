@@ -559,6 +559,7 @@ FReply SPluginCreatorTabContent::OnCreatePluginClicked()
 			if (!MakeDirectory(PublicSourceFolder))
 			{
 				return FReply::Unhandled();
+
 			}
 		}
 
@@ -574,6 +575,8 @@ FReply SPluginCreatorTabContent::OnCreatePluginClicked()
 		{
 			UE_LOG(PluginCreatorPluginLog, Log, TEXT("Failed to create plugin build file. %s"), *(LocalFailReason.ToString()));
 			DeletePluginDirectory(*PluginFolder);
+			FMessageDialog::Open(EAppMsgType::Ok, LocalFailReason);
+
 			return FReply::Unhandled();
 		}
 		else
@@ -585,6 +588,8 @@ FReply SPluginCreatorTabContent::OnCreatePluginClicked()
 		{
 			UE_LOG(PluginCreatorPluginLog, Log, TEXT("Failed to create plugin header file. %s"), *(LocalFailReason.ToString()));
 			DeletePluginDirectory(*PluginFolder);
+			FMessageDialog::Open(EAppMsgType::Ok, LocalFailReason);
+
 			return FReply::Unhandled();
 		}
 
@@ -592,6 +597,8 @@ FReply SPluginCreatorTabContent::OnCreatePluginClicked()
 		{
 			UE_LOG(PluginCreatorPluginLog, Log, TEXT("Failed to create plugin PCH file. %s"), *(LocalFailReason.ToString()));
 			DeletePluginDirectory(*PluginFolder);
+			FMessageDialog::Open(EAppMsgType::Ok, LocalFailReason);
+
 			return FReply::Unhandled();
 		}
 
@@ -599,6 +606,8 @@ FReply SPluginCreatorTabContent::OnCreatePluginClicked()
 		{
 			UE_LOG(PluginCreatorPluginLog, Log, TEXT("Failed to create plugin cpp file. %s"), *(LocalFailReason.ToString()));
 			DeletePluginDirectory(*PluginFolder);
+			FMessageDialog::Open(EAppMsgType::Ok, LocalFailReason);
+
 			return FReply::Unhandled();
 		}
 
@@ -608,6 +617,8 @@ FReply SPluginCreatorTabContent::OnCreatePluginClicked()
 			{
 				UE_LOG(PluginCreatorPluginLog, Log, TEXT("Failed to create plugin styles files. %s"), *(LocalFailReason.ToString()));
 				DeletePluginDirectory(*PluginFolder);
+				FMessageDialog::Open(EAppMsgType::Ok, LocalFailReason);
+
 				return FReply::Unhandled();
 			}
 
@@ -615,6 +626,7 @@ FReply SPluginCreatorTabContent::OnCreatePluginClicked()
 			{
 				UE_LOG(PluginCreatorPluginLog, Log, TEXT("Failed to create plugin commands file. %s"), *(LocalFailReason.ToString()));
 				DeletePluginDirectory(*PluginFolder);
+				FMessageDialog::Open(EAppMsgType::Ok, LocalFailReason);
 				return FReply::Unhandled();
 			}
 		}

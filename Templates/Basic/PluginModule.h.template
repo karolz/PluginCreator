@@ -1,0 +1,26 @@
+// Some copyright should be here...
+
+#pragma once
+
+#include "ModuleManager.h"
+
+%PUBLIC_HEADER_INCLUDES%
+
+class F%PLUGIN_NAME%Module : public IModuleInterface
+{
+public:
+
+	/** IModuleInterface implementation */
+	virtual void StartupModule() override;
+	virtual void ShutdownModule() override;
+	
+	/** This function will be bound to Command.*/
+	void PluginButtonClicked();
+	
+private:
+
+	void AddToolbarExtension(class FToolBarBuilder &);
+	void AddMenuExtension(class FMenuBuilder &);
+
+	TSharedPtr<class FUICommandList> PluginCommands;
+};
